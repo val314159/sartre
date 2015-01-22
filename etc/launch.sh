@@ -1,0 +1,1 @@
+gunicorn -kgevent -b:1443 --certfile=server.crt --keyfile=server.key --debug --reload authenticity_core:app -D
