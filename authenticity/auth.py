@@ -1,4 +1,5 @@
-import os, sys, json, traceback as tb, uuid, requests
+from prelude import *
+import os, sys, traceback as tb, json, uuid
 class AuthBase(object):
     def grant (_,u,p): return '',u,{}
     def revoke(_,t):   return
@@ -21,30 +22,20 @@ class MemAuth(AuthBase):
             tok='t.'+str(uuid.uuid1())
             _.get('t')[tok]=(username,user)
             pass
-        print "return", tok,username,user
         return tok,username,user
     def revoke(_,t):  return      _.get('t').pop(t,{})
-    def valid (_,t,g):
-        print '-'*80
-        print              t
-        print       _.get('t')
-        print       _.get('t').get(t,('',{}))
-        print       _.get('t').get(t,('',{}))[1]
-        print       _.get('t').get(t,('',{}))[1].get('g',[])
-        print  g in _.get('t').get(t,('',{}))[1].get('g',[])
-        return g in _.get('t').get(t,('',{}))[1].get('g',[])
+    def valid (_,t,g):return g in _.get('t').get(t,('',{}))[1].get('g',[])
     def info  (_,t):  return      _.get('t').get(t,{})
     pass
 _Auth=MemAuth()
 def get_auth(): return _Auth
-def set_auth(a):
-    global _Auth
-    _Auth = a
-    pass
+def set_auth(a):    global _Auth;    _Auth = a
+pass
 from bottle import request, response, redirect, default_app, abort
 app=default_app()
 @app.route('/auth/grant')
 def auth_grant():
+    print 'grant'
     response.headers['Access-Control-Allow-Origin'] = '*'
     rp=request.params
     tok,username,info = get_auth().grant(rp.get('u'),rp.get('p'))
@@ -52,31 +43,25 @@ def auth_grant():
     return dict(result=dict(access_token=tok,username=username,authinfo=info))
 @app.route('/auth/valid')
 def auth_valid():
+    print 'valid'
     response.headers['Access-Control-Allow-Origin'] = '*'
     rp=request.params
     if not get_auth().valid(rp['t'],rp['g']): response.status=401
     return ['']
 @app.route('/auth/info')
 def auth_info():
+    print 'info'
     response.headers['Access-Control-Allow-Origin'] = '*'
     info = get_auth().info(request.params.get('t'))
     if not info: response.status=401
     return dict(result=info)
 @app.route('/auth/revoke')
 def auth_revoke():
+    print 'revoke'
     response.headers['Access-Control-Allow-Origin'] = '*'
     info = get_auth().revoke(request.params.get('t'))
     if not info: response.status=401
     return dict(result=info)
 
-from gevent import spawn
-from gevent.pywsgi import WSGIServer
-from geventwebsocket import WebSocketError
-from geventwebsocket.handler import WebSocketHandler
-server = WSGIServer(("0.0.0.0", 9080), app,
-                    handler_class=WebSocketHandler)
-spawn(server.serve_forever)
-server = WSGIServer(("0.0.0.0", 9443), app,
-                    keyfile='etc/server.key', certfile='etc/server.crt',
-                    handler_class=WebSocketHandler)
-server.serve_forever()
+from common import glaunch
+if __name__=='__main__':glaunch(app,9080,9443)

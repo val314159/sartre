@@ -1,25 +1,7 @@
+from prelude import *
 from bottle import request, response, Bottle, abort, static_file
 app = Bottle()
-
-def print_exc():
-    import traceback
-    print '*'*80
-    traceback.print_exc()
-    print '*'*80
-    pass
-
-def valid(t,g='user'):
-    try:
-        import requests
-        xbase ='s://localhost:9443'
-        #xbase = '://localhost:9080'
-        s='http%s/auth/valid?t=%s&g=%s'%(xbase,t,g)
-        req=requests.get(s)
-        return req.status_code==200
-    except:
-        print_exc()
-        return False
-
+print 00001
 class obj:
     @staticmethod
     def ping(*a,**kw):
@@ -31,15 +13,25 @@ class obj:
         x=subprocess.Popen(['fortune'],stdout=subprocess.PIPE)
         y = x.communicate()
         return y[0]
+    pass
+
+_ClientObj=obj
+def set_client_obj(obj):global _ClientObj;_ClientObj=obj
+set_client_obj(obj)
+
+from common import authorize_token
+
+@app.route('/test')
+def test():
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    tok = authorize_token(None)
+    return ['ok']
 
 @app.route('/websocket')
 def handle_websocket():
+    response.headers['Access-Control-Allow-Origin'] = '*'
 
-    if valid(request.params.get('t')):
-        print "VALID"
-    else:
-        print "NOT VALID"
-        pass
+    tok = authorize_token()
 
     wsock = request.environ.get('wsgi.websocket')
     if not wsock:
@@ -47,7 +39,6 @@ def handle_websocket():
 
     while True:
         try:
-            import json
             message = wsock.receive()
             print("Your message was: %r" % message)
             if not message: break
@@ -57,7 +48,7 @@ def handle_websocket():
             method=j['method']
             _id=j.get('id',None)
             j['_ws'] = wsock
-            fn=getattr(obj,method)
+            fn=getattr(client_obj,method)
             try:
                 ret=fn(j)
                 print "RET", repr(ret)
@@ -76,18 +67,11 @@ def handle_websocket():
     print "BYE!"
 
 @app.route('/static/<filename>')
-def server_static(filename):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    return static_file(filename, root='static')
+def serve_static(filename):
+    resp = static_file(filename, root='static')
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
-from gevent import spawn
-from gevent.pywsgi import WSGIServer
-from geventwebsocket import WebSocketError
-from geventwebsocket.handler import WebSocketHandler
-server = WSGIServer(("0.0.0.0", 8080), app,
-                    handler_class=WebSocketHandler)
-spawn(server.serve_forever)
-server = WSGIServer(("0.0.0.0", 8443), app,
-                    keyfile='etc/server.key', certfile='etc/server.crt',
-                    handler_class=WebSocketHandler)
-server.serve_forever()
+from common import glaunch
+print 100001
+if __name__=='__main__':glaunch(app,8080,8443)
