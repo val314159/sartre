@@ -2,18 +2,24 @@ function get_u(){return document.getElementById("u").value}
 function get_p(){return document.getElementById("p").value}
 function another_one(){
     rpc_send("motd",["Hello, world2"]);
+    LOG("Please sir may I have another!");
+}
+function LOG(msg,typ) {
+    typ = typ || 'info';
+    $('#log').prepend("<p class='alert small alert-"+typ+"' role='alert'>"+msg+"</p>");
 }
 function login(){
     console.log("LOGIN");
-    //document.getElementById("navbar").class="navbar-collapse collapse";
     $("#xxx").click();
-    console.log("LOGIN2");
+    LOG("Try Logging in");
     var args="?u="+get_u()+"&p="+get_p();
     //var xbase="s://localhost:7443";
     var xbase="://localhost:7080";
     var url="http"+xbase+"/auth/grant"+args;
     console.log("URL:"+url);
+    LOG("Try Logging in to "+url);
     function done(a,b,c){
+	LOG("Success Logging in","success");
 	console.log("DONE"+[a,b,c]);
 	console.log("DONE"+[a,b,c.responseText]);
 	console.log("DONE"+[a,b,JSON.parse(c.responseText)]);
@@ -24,11 +30,18 @@ function login(){
 	rpc_open(access_token);
     }
     function fail(a,b,c){
+	LOG("Fail Logging in","danger");
 	console.log("FAIL"+[a,b,c]);
     }
     $.ajax(url).done(done).fail(fail);
 }
 ///
+function unlog(){
+    $('#log').html('');
+}
+function logout(){
+    LOG("log out how?",'warning');
+}
 rpc_add_open(function(){
 	document.getElementById('access_token').innerHTML = readCookie('access_token');
 	
@@ -40,5 +53,7 @@ rpc_add_open(function(){
     });
 rpc_add_notify('motd',function(data) {
 	console.log("MOTD"+str(data));
-	document.getElementById('motd').innerHTML = data.result;
+	var result = data.result.replace(/\n/g,'<br>');
+	LOG("New Fortune: "+str(result),'success');
+	document.getElementById('motd').innerHTML = result;
     });
