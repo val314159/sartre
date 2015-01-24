@@ -14,7 +14,7 @@ def glaunch(app,port,ssl_port):
     server.serve_forever()
     pass
 
-def authorize_token(tok,group='user'):
+def authorize_token(tok=None,group='user'):
     from bottle import request, abort
     from auth_client import valid
     if tok is None: tok = request.params.get('t')

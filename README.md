@@ -24,7 +24,7 @@ or
 #### Just the auth server:
 
 ```
-python -mauthenticity.auth
+python -mauthenticity.wsgi_auth
 ```
 
 #### Just the websocket server:
@@ -33,4 +33,4 @@ python -mauthenticity.auth
 python -mauthenticity.ws
 ```
 
-(actually the websocket server serves up static files, too)
+(actually the websocket server serves up <a href="http://localhost:8080/static/index.html">static files</a>, too)

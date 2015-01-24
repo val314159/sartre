@@ -1,7 +1,7 @@
 from prelude import *
 from bottle import request, response, Bottle, abort, static_file
 app = Bottle()
-print 00001
+
 class obj:
     @staticmethod
     def ping(*a,**kw):
@@ -20,6 +20,7 @@ def set_client_obj(obj):global _ClientObj;_ClientObj=obj
 set_client_obj(obj)
 
 from common import authorize_token
+from geventwebsocket import WebSocketError
 
 @app.route('/test')
 def test():
@@ -48,7 +49,7 @@ def handle_websocket():
             method=j['method']
             _id=j.get('id',None)
             j['_ws'] = wsock
-            fn=getattr(client_obj,method)
+            fn=getattr(_ClientObj,method)
             try:
                 ret=fn(j)
                 print "RET", repr(ret)
@@ -66,12 +67,13 @@ def handle_websocket():
             break
     print "BYE!"
 
-@app.route('/static/<filename>')
+@app.route('/static/<filename:path>')
 def serve_static(filename):
     resp = static_file(filename, root='static')
+    print dir(request)
+    print dict(request.cookies)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
 from common import glaunch
-print 100001
 if __name__=='__main__':glaunch(app,8080,8443)
