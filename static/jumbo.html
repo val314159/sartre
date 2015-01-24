@@ -32,23 +32,23 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" id="xxx">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#">Sarte's Fortune Cookie Jar</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-form navbar-right">
             <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
+              <input type="text" placeholder="Email" class="form-control" id="u">
             </div>
             <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
+              <input type="password" placeholder="Password" class="form-control" id="p">
             </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
+            <button type="submit" class="btn btn-success" onclick="login();return false;">Sign in</button>
           </form>
         </div><!--/.navbar-collapse -->
       </div>
@@ -57,9 +57,11 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        <h2>Hello, <span
+class="btn btn-default btn-md" type="button" role="button"
+ id="access_token">t.unknown</span>!</h2>
+        <p id="motd">This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button" onclick="another_one();return false;">Get Another One &raquo;</a></p>
       </div>
     </div>
 
@@ -67,6 +69,7 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
+	  <small id="pong">logged out</small>
           <h2>Heading</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
@@ -86,7 +89,11 @@
       <hr>
 
       <footer>
-        <p>&copy; Company 2014</p>
+        <p style='float:left'>
+<a href="x">Back to Top</a>
+&nbsp;</p>
+        <p style='float:right'>&copy <a href="ccl.io">ccl.io</a> 2015</p>
+	<p><center>Powered by <a href="sartre">Sarte</a></center></p>
       </footer>
     </div> <!-- /container -->
 
@@ -98,6 +105,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -- >
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-<!-- -->
+    <!-- -->
+    <script src="cookie.js"></script>
+    <script src="rpc.js"></script>
+    <script src="login_app.js"></script>
   </body>
 </html>
