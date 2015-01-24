@@ -25,7 +25,7 @@ function login(){
 rpc_add_open(function(){
 	rpc_send("ping",["Hello, world"],function(data){
 		console.log("PING RESPONSED TO!!!!"+str(data));
-		document.getElementById('pong').innerHTML = "pong";
+		document.getElementById('pong').innerHTML = "pong:"+readCookie('access_token');
 	    });
 	rpc_send("motd",["Hello, world"]);
     });
