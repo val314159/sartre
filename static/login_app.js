@@ -6,7 +6,46 @@ function another_one(){
 }
 function LOG(msg,typ) {
     typ = typ || 'info';
-    $('#log').prepend("<p class='alert small alert-"+typ+"' role='alert'>"+msg+"</p>");
+    $('#log').prepend("<p class='alert alert-dismissable small alert-"+typ+"' role='alert'>"+
+		      '<button type="button" class="close" data-dismiss="alert">×</button>'+
+		      msg+
+		      "</p>");
+}
+function QUOTE(msg,who,title,id) {
+    var xstr="<blockquote id='"+id+"'>&ldquo;"+msg+"&rdquo;"+
+	"<footer><cite><abbr title="+title+">"+who+
+	"</abbr></cite></footer></blockquote>";
+    $('#testimonials').append(xstr);
+}
+function QUOTE2(msg,who,title,id) {
+    var xstr="<blockquote class='blockquote-reverse' id='"+id+"'>&ldquo;"+msg+"&rdquo;"+
+	"<footer><cite><abbr title="+title+">"+who+
+	"</abbr></cite></footer></blockquote>";
+    $('#testimonials').append(xstr);
+}
+var _id=100;
+function focusfile(elt){
+    $(elt).focus();
+}
+function click9(){
+    LOG("11");
+    var id = "id"+(++_id);
+    QUOTE2("Edit Content Here","you","YOU","id"+id);
+    LOG("112");
+    $('#id'+id).attr('contentEditable',true);
+    LOG("113");
+    $('#id'+id).focus();
+    LOG("114");
+}
+function click10(){
+    LOG("11");
+    var id = "id"+(++_id);
+    QUOTE("Edit Content Here","you","YOU","id"+id);
+    LOG("112");
+    $('#id'+id).attr('contentEditable',true);
+    LOG("113");
+    $('#id'+id).focus();
+    LOG("114");
 }
 function login(){
     console.log("LOGIN");
