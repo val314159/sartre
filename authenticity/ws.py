@@ -6,7 +6,10 @@ class obj:
     @staticmethod
     def ping(*a,**kw):
         return "PONG", repr((a,kw))
-
+    @staticmethod
+    def filesystem_walk(x):
+        return dict((name,(dirs,files))
+                    for name,dirs,files in os.walk(x['params'][0]))
     @staticmethod
     def motd(x):
         import subprocess

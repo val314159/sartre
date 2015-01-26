@@ -4,6 +4,13 @@ function another_one(){
     rpc_send("motd",["Hello, world2"]);
     LOG("Please sir may I have another!");
 }
+function ping(){
+    var access_token = readCookie('access_token');
+    rpc_send("ping",["Hello, world"],function(data){
+	    console.log("PING RESPONSED TO!!!!"+str(data));
+	    document.getElementById('pong').innerHTML = "pong:"+access_token;
+	});
+}
 function LOG(msg,typ) {
     typ = typ || 'info';
     $('#log').prepend("<p class='alert alert-dismissable small alert-"+typ+"' role='alert'>"+
@@ -23,30 +30,6 @@ function QUOTE2(msg,who,title,id) {
 	"</abbr></cite></footer></blockquote>";
     $('#testimonials').append(xstr);
 }
-var _id=100;
-function focusfile(elt){
-    $(elt).focus();
-}
-function click9(){
-    LOG("11");
-    var id = "id"+(++_id);
-    QUOTE2("Edit Content Here","you","YOU","id"+id);
-    LOG("112");
-    $('#id'+id).attr('contentEditable',true);
-    LOG("113");
-    $('#id'+id).focus();
-    LOG("114");
-}
-function click10(){
-    LOG("11");
-    var id = "id"+(++_id);
-    QUOTE("Edit Content Here","you","YOU","id"+id);
-    LOG("112");
-    $('#id'+id).attr('contentEditable',true);
-    LOG("113");
-    $('#id'+id).focus();
-    LOG("114");
-}
 function login(){
     console.log("LOGIN");
     $("#xxx").click();
@@ -59,12 +42,8 @@ function login(){
     LOG("Try Logging in to "+url);
     function done(a,b,c){
 	LOG("Success Logging in","success");
-	console.log("DONE"+[a,b,c]);
-	console.log("DONE"+[a,b,c.responseText]);
-	console.log("DONE"+[a,b,JSON.parse(c.responseText)]);
 	var j=JSON.parse(c.responseText);
 	var access_token = AccessToken = j.access_token;
-	createCookie('qwert','yuiop',1);
 	createCookie('access_token',access_token,1);
 	rpc_open(access_token);
     }
@@ -82,13 +61,11 @@ function logout(){
     LOG("log out how?",'warning');
 }
 rpc_add_open(function(){
-	document.getElementById('access_token').innerHTML = readCookie('access_token');
-	
-	rpc_send("ping",["Hello, world"],function(data){
-		console.log("PING RESPONSED TO!!!!"+str(data));
-		document.getElementById('pong').innerHTML = "pong:"+readCookie('access_token');
-	    });
-	rpc_send("motd",["Hello, world"]);
+	var access_token = readCookie('access_token');
+	document.getElementById('access_token').innerHTML = access_token;
+	ping();
+	another_one();
+	filesystem_walk();
     });
 rpc_add_notify('motd',function(data) {
 	console.log("MOTD"+str(data));
