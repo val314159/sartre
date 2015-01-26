@@ -76,6 +76,7 @@
 	  <button onclick="logout()">log out</button>
 	  <small id="pong" class="text-warning">logged out</small>
           <h2>Why?</h2>
+
 	  <p>&nbsp;&nbsp;&nbsp;&nbsp;
 Sartre is an existentialist framework.  It doesn't tell you what to do; It just <em>is.</em></p>
 	  <p>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -91,9 +92,11 @@ Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursu
 	    <dd>blah rr blah blah blah</dd>
 	  </dl>
 
-<p>
-<em ondblclick="$('#filex').focus()">File:</em> ./authenticate/<b><span id="filex" contentEditable="true">wsgi_auth.py</span></b>
-<pre class="pre-scrollable" contentEditable="true">from prelude import *
+	  <div id="tree"></div>
+
+	  <p>
+	    <em ondblclick="$('#filex').focus()">File:</em> ./authenticate/<b><span id="filex" contentEditable="true">wsgi_auth.py</span></b>
+	    <pre class="pre-scrollable" contentEditable="true">from prelude import *
 from auth_core import get_auth
 ###
 def app(env, start_resp):
@@ -143,8 +146,8 @@ def app(env, start_resp):
     return reply(404,'Not Found',encode({}))
 from common import glaunch
 if __name__=='__main__':glaunch(app,7080,7443)
-</pre>
-</p>
+	    </pre>
+	  </p>
 
 
           <p>
@@ -155,8 +158,8 @@ if __name__=='__main__':glaunch(app,7080,7443)
         <div class="col-md-4" id="testimonials">
           <h2>Testimonials
             <a class="btn btn-default btn-sm" href="#" role="button" onclick="$('#testaments').html('');return false;">Clear</a>
-</h2>
-<div id="testaments">
+	  </h2>
+	  <div id="testaments">
 	  <blockquote>&ldquo;What?  You made a website?&rdquo;
 	    <footer><cite><abbr title="lover of vals">annebot</abbr></cite></footer></blockquote>
 	  <blockquote class="blockquote-reverse">&ldquo;Well, it's really an async RPC framework and all...&rdquo;
@@ -164,17 +167,17 @@ if __name__=='__main__':glaunch(app,7080,7443)
 	  <blockquote><span>&ldquo;Was that the sound of can opener?&rdquo;</span>
 	    <footer><cite><abbr title="infamous feline">lex</abbr></cite></footer></blockquote>
 	  <blockquote class="blockquote-reverse">&ldquo;No, lex&hellip;&rdquo; &laquo;shakes head&raquo;
-<p style="height: 0.25em">&nbsp;</p>
-&ldquo;So, it's like, really efficient.  And super-scalable.&rdquo;
+	    <p style="height: 0.25em">&nbsp;</p>
+	    &ldquo;So, it's like, really efficient.  And super-scalable.&rdquo;
 	    <footer><cite><abbr title="lover of bots">val</abbr></cite></footer></blockquote>
 
-</div>
-<button class="btn btn-primary" onclick="add_to_convo();return false;">Add to the conversation</button>
+	  </div>
+	  <button class="btn btn-primary" onclick="add_to_convo();return false;">Add to the conversation</button>
 	</div>
         <div class="col-md-4">
           <h2>Log Messages
             <a class="btn btn-default btn-sm" href="#" role="button" onclick="unlog();return false;">Clear</a>
-</h2>
+	  </h2>
           <div xclass="col-md-4" id="log"></div>
         </div>
       </div>
@@ -202,5 +205,72 @@ if __name__=='__main__':glaunch(app,7080,7443)
     <script src="rpc.js"></script>
     <script src="login_app.js"></script>
     <script>LOG("Page Loaded.")</script>
+
+    <script>
+
+var tree = [
+  {
+    text: "Remote Filesystem",
+    nodes: [
+      {
+        text: "usr"
+      },
+      {
+        text: "bin"
+      },
+      {
+        text: "etc",
+        nodes: [
+          {
+            text: "hosts"
+          },
+          {
+            text: "passwd"
+          }
+        ]
+      },
+      {
+        text: "home",
+	nodes: [{
+text:"val"
+},{
+text:"annebot"
+}
+      ]}
+    ]
+/*
+  },
+  {
+    text: "Parent 2"
+  },
+  {
+    text: "Parent 3"
+  },
+  {
+    text: "Parent 4"
+  },
+  {
+    text: "Parent 5"
+*/
+  }
+];
+
+function getTree() {
+    // Some logic to retrieve, or generate tree structure
+return tree;
+}
+
+function regetTree() {
+$('#tree').treeview({data: getTree(),levels:0,
+onNodeSelected:function(event,node){
+LOG("SELECTED:"+str(node));
+}});
+}
+
+regetTree();
+
+</script>
+    <script>LOG("Page Loaded.")</script>
+
   </body>
 </html>
