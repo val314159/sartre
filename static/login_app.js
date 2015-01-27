@@ -2,13 +2,25 @@ function get_u(){return document.getElementById("u").value}
 function get_p(){return document.getElementById("p").value}
 function another_one(){
     rpc_send("motd",["Hello, world2"]);
-    LOG("Please sir may I have another!");
+    LOG("Please sir may I have another (fortune)?");
 }
 function ping(){
     var access_token = readCookie('access_token');
     rpc_send("ping",["Hello, world"],function(data){
 	    console.log("PING RESPONSED TO!!!!"+str(data));
 	    document.getElementById('pong').innerHTML = "pong:"+access_token;
+	});
+}
+function load(filename,cb){
+    rpc_send("load",[filename],function(data){
+	    console.log("LOAD RESPONSED TO!!!!"+str(data));
+	    cb(data);
+	});
+}
+function save(filename,data){
+    rpc_send("save",[filename,data],function(data){
+	    console.log("LOAD RESPONSED TO!!!!"+str(data));
+	    cb(data);
 	});
 }
 function LOG(msg,typ) {

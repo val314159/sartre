@@ -7,6 +7,24 @@ class obj:
     def ping(*a,**kw):
         return "PONG", repr((a,kw))
     @staticmethod
+    def load(path):
+        print "LOAD", repr(path)
+        path = path['params'][0]
+        data=open(path).read()
+        arr=path.split('/')
+        d = dict(
+            dirname='/'.join(arr[:-1]),
+            filename=arr[-1],
+            data=data,
+            )
+        print "D", repr(d)
+        return d
+    @staticmethod
+    def save(path,text):
+        print "SAVBE", repr((path,text))
+        return dict((name,(dirs,files))
+                    for name,dirs,files in os.walk(x['params'][0]))
+    @staticmethod
     def filesystem_walk(x):
         return dict((name,(dirs,files))
                     for name,dirs,files in os.walk(x['params'][0]))

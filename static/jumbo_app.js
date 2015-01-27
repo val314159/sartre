@@ -41,7 +41,37 @@ function filesystem_walk() {
 	    regetTree();
 	});
 }
+function text2html(text){
+    text = text.replace(/\&/g,'&amp;');
+    text = text.replace(/\>/g,'&gt;');
+    text = text.replace(/\</g,'&lt;');
+    return text;
+}
+function html2text(text){
+    text = text.replace(/&lt;/g,'<');
+    text = text.replace(/&gt;/g,'>');
+    text = text.replace(/&amp;/g,'&');
+    return text;
+}
+function saveFile(){
+    var fname=$('#dirname').html()+'/'+$('#filename').html();
+    var text=html2text($('#filebuf').html());
+    save(fname,text,function(){
+	    LOG("Saved.");
+	});
+}
 function loadFile(filename){
     LOG("PICKED A FILE "+filename);
+    load(filename,function(data){
+	    LOG("OK GOT IT:1:"+str(data.result));
+	    var newText=text2html(data.result.data);
+	    $( '#dirname'  ).html(data.result.dirname);
+	    $( '#filename' ).html(data.result.filename);
+	    $( '#filebuf'  ).html(newText);
+	});
+}
+function revertFile(){
+    var fname=$('#dirname').html()+'/'+$('#filename').html();
+    loadFile(fname);
 }
 xregetTree();

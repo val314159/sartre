@@ -16,10 +16,6 @@
     <!-- Custom styles for this template -->
     <link href="jumbotron.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -70,39 +66,20 @@
     </div>
 
     <div class="container">
-      <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
 	  <button onclick="logout()">log out</button>
 	  <small id="pong" class="text-warning">logged out</small>
           <h2>Why?</h2>
-
 	  <p>&nbsp;&nbsp;&nbsp;&nbsp;
 Sartre is an existentialist framework.  It doesn't tell you what to do; It just <em>is.</em></p>
 	  <p>&nbsp;&nbsp;&nbsp;&nbsp;
 Whether you like it or not, you're going to spend a lot of time wiring together web stuff.</p>
           <p>&nbsp;&nbsp;&nbsp;&nbsp;
 Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-	  <dl class="dl-horizontal">
-	    <dt>First of all...</dt>
-	    <dd>blah blah blah blah</dd>
-	    <dt>Secondly...</dt>
-	    <dd>xx blah blah blah blah xx</dd>
-	    <dt>Thirdly...</dt>
-	    <dd>blah rr blah blah blah</dd>
-	  </dl>
-
-	  <div id="tree">Tree Not loaded.</div>
-
-	  <p>
-	    <em ondblclick="$('#filex').focus()">File:</em> ./authenticate/<b><span id="filex" contentEditable="true">wsgi_auth.py</span></b>
-	    <pre class="pre-scrollable" contentEditable="true">code here</pre>
-	  </p>
-
-          <p>
-	    <a class="btn btn-default" href="#" role="button">View details &raquo;</a>
-	    <a class="btn btn-default" disabled=true href="#" role="button">Save &raquo;</a>
-	  </p>
+	  <hr>
+	  <br>
+	  <hr>
         </div>
         <div class="col-md-4" id="testimonials">
           <h2>Testimonials
@@ -130,23 +107,64 @@ Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursu
           <div xclass="col-md-4" id="log"></div>
         </div>
       </div>
+    </div> <!-- /container -->
 
-      <hr>
+    <hr>
 
+    <div class="jumbotron" style='background-image:url(lgrey031.jpg)'>
+      <div class="container">
+        <h1>Hello again, <span id="access_token2" class="btn btn-default btn-md" type="button" role="button">unknown</span>!</h1>
+        <p>Want to try to edit some stuff?</p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button" onclick="another_one();return false;">Get Another Fortune &raquo;</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+	<div class="col-md-4">
+	  <ul class="nav nav-pills">
+	    <li role="presentation" class="active"><a href="#">Files</a></li>
+	    <li role="presentation"><a href="#">Buffers</a></li>
+	    <li role="presentation"><a href="#">Procs</a></li>
+	  </ul>
+	  <div id="tree">Tree Not loaded.</div>
+	</div>
+	<div class="col-md-4">
+
+	  <p>
+	    <em ondblclick="$('#filename').focus()">File: </em id="dirname">./authenticate<b>/<span id="filename" contentEditable="true">wsgi_auth.py</span></b>
+	    <pre class="pre-scrollable" contentEditable="true" id="filebuf">code here</pre>
+	  </p>
+          <p>
+	    <a style="float:right" onclick="revertFile();return false;"class="btn btn-default" href="#" role="button">&laquo; Revert</a>
+	    <a onclick="saveFile();return false;" id="save_button" class="btn btn-default" href="#" role="button">Save &raquo;</a>
+	  </p>
+
+
+	</div>
+	<div class="col-md-4">
+	  ccc
+	</div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="container">
       <footer>
         <p style="float:left"  class="text-left"><a href="#">Back to Top</a></p>
 	<p style="float:right" class="text-right">&copy <a href="ccl.io">ccl.io</a> 2015</p>
 	<p class="text-center">Powered by <a href="sartre">Sartre</a></p>
       </footer>
+    </div>
 
-    </div> <!-- /container -->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -- >
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <!-- -->
     <script src="bootstrap-treeview.js"></script>
