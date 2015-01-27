@@ -20,10 +20,14 @@ class obj:
         print "D", repr(d)
         return d
     @staticmethod
-    def save(path,text):
-        print "SAVBE", repr((path,text))
-        return dict((name,(dirs,files))
-                    for name,dirs,files in os.walk(x['params'][0]))
+    def save(obj):
+        print "SAVBE", repr(obj)
+        filename, data = obj['params']
+        f=open(filename,'w')
+        f.write(data)
+        f.close()
+        return dict(result=true)
+
     @staticmethod
     def filesystem_walk(x):
         return dict((name,(dirs,files))
