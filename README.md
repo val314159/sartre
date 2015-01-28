@@ -33,4 +33,10 @@ python -mauthenticity.wsgi_auth
 python -mauthenticity.ws
 ```
 
-(actually the websocket server serves up <a href="http://localhost:8080/static/index.html">static files</a>, too)
+(actually the websocket server serves up
+	   <a href="http://localhost:8080/static/index.html">
+	   static files</a>, too)
+
+- <a href="http://localhost:8080/static/main.html">Main Page</a>
+- <a href="http://localhost:8080/static/examples/index.html">Examples</a>
+- <a href="http://localhost:8080/static/readme.html">README</a>
