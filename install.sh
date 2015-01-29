@@ -1,3 +1,3 @@
 virtualenv .v
 . .v/bin/activate
-pip install bottle requests gevent-websocket
+pip install bottle requests gevent-websocket leveldb

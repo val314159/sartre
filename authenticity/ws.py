@@ -2,7 +2,49 @@ from prelude import *
 from bottle import request, response, Bottle, abort, static_file
 app = Bottle()
 
+def DB(_=[]):
+    from leveldb import LevelDB
+    if not _: _.append(LevelDB('.db'))
+    return _[0]
+
 class obj:
+    @staticmethod
+    def dbCreate(rec):
+        print  "DB CREATE", repr(rec)
+        obj = rec['params'][0]
+        obj_id = obj.pop('id')
+        DB().Put(obj_id+'.~meta', '{}')
+        for k,v in obj.iteritems():
+            DB().Put(obj_id+'.'+k, json.dumps(v))
+            pass
+        return "DB CREATE", repr(rec)
+    @staticmethod
+    def dbRead(rec):
+        print  "DB READ", repr(rec)
+        return "DB READ", repr(rec)
+    @staticmethod
+    def dbUpdate(rec):
+        print  "DB UPDATE", repr(rec)
+        print  "DB UPDATE", repr(rec['params'])
+        obj=rec['params'][0]
+        obj_id=obj.pop('id')
+        for k,v in obj.iteritems():
+            print "----- UP", repr((k,v))
+            DB().Put(obj_id+'.'+k, json.dumps(v))
+            pass
+        return "DB UPDATE"
+    @staticmethod
+    def dbDelete(rec):
+        print  "DB DELETE", repr(rec)
+        return "DB DELETE", repr(rec)
+
+    @staticmethod
+    def sub(*a,**kw):
+        return "SUB", repr((a,kw))
+    @staticmethod
+    def pub(*a,**kw):
+        return "PUB", repr((a,kw))
+
     @staticmethod
     def ping(*a,**kw):
         return "PONG", repr((a,kw))
@@ -66,10 +108,10 @@ def handle_websocket():
     while True:
         try:
             message = wsock.receive()
-            print("Your message was: %r" % message)
+            #print("Your message was: %r" % message)
             if not message: break
             j=json.loads(message)
-            print("Your message was::" + repr(j))
+            #print("Your message was::" + repr(j))
 
             method=j['method']
             _id=j.get('id',None)
@@ -77,17 +119,17 @@ def handle_websocket():
             fn=getattr(_ClientObj,method)
             try:
                 ret=fn(j)
-                print "RET", repr(ret)
+                #print "RET", repr(ret)
                 if ret:
                     wsock.send(json.dumps(dict(id=_id,
                                                method=method,
                                                result=ret)))
                     pass
             except:
-                print "EXCEPT"
+                #print "EXCEPT"
                 print_exc()
         except WebSocketError:
-            print "WEB SOCKET ERROR"
+            #print "WEB SOCKET ERROR"
             print_exc()
             break
     print "BYE!"
@@ -95,10 +137,17 @@ def handle_websocket():
 @app.route('/static/<filename:path>')
 def serve_static(filename):
     resp = static_file(filename, root='static')
-    print dir(request)
-    print dict(request.cookies)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
+def dump_db():
+    print "DUMP DB"
+    for x in DB().RangeIter():
+        print "X", x
+
 from common import glaunch
-if __name__=='__main__':glaunch(app,8080,8443)
+if __name__=='__main__':
+    print 'DB0', '='*80
+    dump_db()
+    print 'DB9', '='*80
+    glaunch(app,8080,8443)

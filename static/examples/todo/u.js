@@ -1,4 +1,5 @@
 ////// Basic Utils
+function LOG(x){console.log(x)}
 function str(x){return JSON.stringify(x)}
 function $E(x){return document.querySelector(x)}
 function $$(x){return document.querySelectorAll(x)}
