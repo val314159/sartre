@@ -1,5 +1,5 @@
 from prelude import *
-from bottle import request, response, Bottle, abort, static_file
+from bottle import request, response, Bottle, abort, static_file, redirect
 app = Bottle()
 
 def DB(_=[]):
@@ -89,6 +89,10 @@ set_client_obj(obj)
 from common import authorize_token
 from geventwebsocket import WebSocketError
 
+@app.route('/')
+def index():
+    return redirect('/static/index.html')
+
 @app.route('/test')
 def test():
     response.headers['Access-Control-Allow-Origin'] = '*'
@@ -134,13 +138,14 @@ def handle_websocket():
             break
     print "BYE!"
 
+@app.route('/README.md')
 @app.route('/static/<filename:path>')
-def serve_static(filename):
-    if filename.endswith('.md'):
-        from markdown2 import markdown_path
+def serve_static(filename=None):
+    from markdown2 import markdown_path
+    if filename is None  or  filename.endswith('.md'):
         response.headers['Access-Control-Allow-Origin'] = '*'
-        return markdown_path(filename)
-    resp = static_file(filename, root='static')
+        return markdown_path('static/'+filename if filename else 'README.md')
+    resp = static_file(filename, root='static/')
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
