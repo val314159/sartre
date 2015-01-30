@@ -136,6 +136,10 @@ def handle_websocket():
 
 @app.route('/static/<filename:path>')
 def serve_static(filename):
+    if filename.endswith('.md'):
+        from markdown2 import markdown_path
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        return markdown_path(filename)
     resp = static_file(filename, root='static')
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
