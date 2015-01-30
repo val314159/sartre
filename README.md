@@ -10,6 +10,7 @@ Sartre - An existential framework.  It doesn't get in your way; it just _is_.
 - Key/Value Store
 
 ---
+## Quickstart
 
 ### To install:
 
@@ -65,7 +66,7 @@ Standalone: exists in its own package, seperate from the rest of sartre.
 
 ### User Interface
 
-*These two are going the most frequently used calls:*
+These two will be the most frequently used calls:
 
 #### /auth/grant?u=[username]&p=[password]
 #### grant(u,p)
@@ -83,7 +84,7 @@ Standalone: exists in its own package, seperate from the rest of sartre.
 
   Returns: [bool] whether your token is authorized for the group *group name*
 
-*These two are used less often:*
+These two are used less often:
 
 #### /auth/revoke?t=[token]
 #### revoke(t)
