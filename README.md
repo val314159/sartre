@@ -35,13 +35,13 @@ or
 #### Just the auth server:
 
 ```
-python -mauthenticity.wsgi_auth
+python -mauthenticity.auth_core
 ```
 
 #### Just the websocket server:
 
 ```
-python -mauthenticity.ws
+python -msartre.ws
 ```
 
 (actually the websocket server serves up

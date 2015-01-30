@@ -1,13 +1,12 @@
-from prelude import *
-
+import os, sys, traceback as tb, json, uuid, requests
+_Urlbase =os.environ.get('CLIENT_URLBASE','s://localhost:7443')
 def valid(t,g='user'):
     try:
-        import requests
-        xbase ='s://localhost:7443'
-        #xbase = '://localhost:7080'
-        s='http%s/auth/valid?t=%s&g=%s'%(xbase,t,g)
+        s='http%s/auth/valid?t=%s&g=%s'%(_Urlbase,t,g)
         req=requests.get(s, verify=False)
         return req.status_code==200
     except:
-        print_exc()
+        print '*'*80
+        tb.print_exc()
+        print '*'*80
         return False
