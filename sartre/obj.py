@@ -5,35 +5,7 @@ def DB(_=[]):
     if not _: _.append(LevelDB('.db'))
     return _[0]
 
-class PS:
-    def __init__(_):
-        from collection import default_dict
-        _.d = default_dict(list)
-        pass
-    def pub(_,channel_name,message,skip=None):
-        lst=_.d[channel_name]
-        for listener in _.d[channel_name]:
-            if listener!=skip:
-                listener.msg(channel_name,message)
-                pass
-            pass
-        pass
-    def sub(_,channel_name,listener):
-        lst=_.d[channel_name]
-        if channel_name not in lst:
-            lst.append(listener)
-            pass
-        pass
-    def unsub(_,channel_name,listener):
-        lst=_.d[channel_name]
-        if channel_name in lst:
-            lst.remove(listener)
-            pass
-        pass
-    pass
-_PS=PS()
-
-class obj:
+class db_obj:
     @staticmethod
     def db_create(ws,rec):
         print  "DB CREATE", repr(rec)
@@ -46,11 +18,13 @@ class obj:
     @staticmethod
     def db_read(ws,rec):
         print  "DB READ", repr(rec)
+        for k,v in DB.RangeIter():
+            print " == KV ", repr((k,v))
+            pass
         return "DB READ", repr(rec)
     @staticmethod
     def db_update(ws,rec):
         print  "DB UPDATE", repr(rec)
-        print  "DB UPDATE", repr(rec['params'])
         obj_id=obj.pop('id')
         for k,v in obj.iteritems():
             print "----- UP", repr((k,v))
@@ -62,59 +36,55 @@ class obj:
         print  "DB DELETE", repr(rec)
         DB().Delete(rec['id'])
         return "DB DELETE", repr(rec)
+    pass
 
-    @staticmethod
-    def sub(subs):
-        for ch in subs:
-            if ch.startswith('-'):
-                _PS.unsub(ch[1:])
-            else:
-                _PS.sub(ch)
-                pass
+class pubsub_obj:
+    from pubsub import PubSub
+    PS = PubSub()
+    @classmethod
+    def sub(_,ws,subs): return _.PS.sub(subs,ws)
+    @classmethod
+    def pub(_,ws,ch,msg,skip=None): return _.PS.pub(ch,msg,skip)
+    pass
 
+class fs_obj:
     @staticmethod
-    def pub(ch,msg,skip=None):
-        _PS.pub(ch,msg,skip)
-        return "PUB"
-
-    @staticmethod
-    def ping(*a,**kw):
-        return "PONG", repr((a,kw))
-    @staticmethod
-    def load(ws,path, offset=0,size=-1):
-        print "LOAD", repr(path)
-        data=open(path).read()
+    def load(ws,path,off=0,sz=None):
+        f=open(path)
+        f.seek(int(offset))
+        data=f.read(size)
+        f.close()
         arr=path.split('/')
-        d = dict(
+        return dict(
             dirname='/'.join(arr[:-1]),
             filename=arr[-1],
-            data=data,
-            )
-        print "D", repr(d)
-        return d
+            data=data)
     @staticmethod
-    def save(ws,filename, data, offset=0,size=-1):
-        f=open(filename,'w')
-        f.write(data)
+    def save(ws,path,data,off=0,sz=None):
+        f=open(path,'w')
+        f.seek(int(offset))
+        f.write(data[:size])
         f.close()
         return dict(result=True)
-
     @staticmethod
     def filesystem_walk(ws,x):
         return dict((name,(dirs,files))
                     for name,dirs,files in os.walk(x))
+    pass
+
+class fortune_obj:
     @staticmethod
     def fortune(ws):
         import subprocess
         x=subprocess.Popen(['fortune'],stdout=subprocess.PIPE)
         y = x.communicate()
         return y[0]
+    motd = fortune
+    pass
+
+class obj(db_obj, pubsub_obj, fs_obj, fortune_obj):
     @staticmethod
-    def motd(ws):
-        import subprocess
-        x=subprocess.Popen(['fortune'],stdout=subprocess.PIPE)
-        y = x.communicate()
-        return y[0]
+    def ping(x=None): return ("PONG",x)
     pass
 
 def dump_db():

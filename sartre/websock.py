@@ -1,7 +1,7 @@
 from prelude import *
 from obj import obj
 from geventwebsocket import WebSocketError
-
+from gevent import spawn
 from obj import obj
 
 _ClientObj=obj
@@ -27,9 +27,9 @@ def process(tok,wsock):
                 print 'J'*60
                 params = j['params']
                 if type(params) in (type([]),type(())):
-                    ret=fn(wsock,*params)
+                    ret=spawn(fn,wsock,*params)
                 else:
-                    ret=fn(wsock,**params)
+                    ret=spawn(fn,wsock,**params)
                     pass
                 #print "RET", repr(ret)
                 if ret:
