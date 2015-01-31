@@ -1,5 +1,5 @@
 # Sartre
-Sartre - An existential framework.  It doesn't get in your way; it just _is_.
+Sartre - An existential framework.  It doesn't get in your way; it just *is*.
 
 ### Includes:
 
@@ -32,16 +32,16 @@ or
 
 ### To run:
 
-#### Just the auth server:
+#### Just the auth server: *ports 7080 and 7443*
 
 ```
 python -mauthenticity.auth_core
 ```
 
-#### Just the websocket server:
+#### Just the websocket server: *ports 8080 and 8443*
 
 ```
-python -msartre.ws
+python -msartre.websvr
 ```
 
 (actually the websocket server serves up
@@ -54,7 +54,7 @@ python -msartre.ws
 
 ---
 
-## Authenticity - _Authentication Server_
+## Authenticity - *Authentication Server*
 
 Designed to be a mostly-dependency free, standalone, token-based authentication server that's sorta OAuth-ishy.  Since OAuth is more of a guideline instead of a protocol, interop doesn't really exist.
 
@@ -91,8 +91,8 @@ These two are used less often:
 - t = token
 
   What the auth server giveth, it can also taketh away.
-   *Note*: _This just invalidates the token,
-    it doesn't end sessions or free any other resources._
+   *Note*: *This just invalidates the token,
+    it doesn't end sessions or free any other resources.*
 
   Returns: {}
 
@@ -109,7 +109,7 @@ You can use this to switch backends (Auth objects)
 #### set_auth(a)
 - a = auth object
 
-  sets the default backend (Auth object) to _a_
+  sets the default backend (Auth object) to *a*
 
   returns: None
 
@@ -120,19 +120,19 @@ You can use this to switch backends (Auth objects)
 
 ### Admin Interface
 
-#### createUser(obj)
+#### create_user(dict)
 
 *TBD*
 
-#### readUsers(filter)
+#### read_users(filter)
 
 *TBD*
 
-#### updateUser(obj)
+#### update_user(overlay)
 
 *TBD*
 
-#### deleteUser(filter)
+#### delete_user(filter)
 
 *TBD*
 
@@ -147,7 +147,11 @@ You can use this to switch backends (Auth objects)
 ## Remote Filesystem w/Editor
 
 - load(filename)
+- fs_load(filename)
 - save(filename,filedata)
+- fs_save(filename,filedata)
+- filesystem_walk(filename,filedata)
+- fs_walk(filename,filedata)
 
 ## Pub/Sub
 
