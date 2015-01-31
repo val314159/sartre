@@ -1,3 +1,29 @@
+// from http://stackoverflow.com/questions/1458724/how-to-set-unset-cookie-with-jquery
+function createCookie(name, value, days) {
+    var expires;
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    } else {
+        expires = "";
+    }
+    document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
+}
+function readCookie(name) {
+    var nameEQ = encodeURIComponent(name) + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+    }
+    return null;
+}
+function eraseCookie(name) {
+    createCookie(name, "", -1);
+}
+///
 function str(x){return JSON.stringify(x)}
 ///
 function LOG(msg,typ) {
@@ -7,6 +33,7 @@ function LOG(msg,typ) {
 		      msg+
 		      "</p>");
 }
+///
 function login(){
     function get_u(){return document.getElementById("u").value}
     function get_p(){return document.getElementById("p").value}
@@ -14,7 +41,7 @@ function login(){
     $("#xxx").click();
     LOG("Try Logging in");
     var args="?u="+get_u()+"&p="+get_p();
-    //var xbase="s://localhost:7443";
+    // var xbase="s://localhost:7443";
     var xbase="://localhost:7080";
     var url="http"+xbase+"/auth/grant"+args;
     console.log("URL:"+url);
@@ -38,6 +65,9 @@ function unlog(){
 }
 function logout(){
     LOG("log out how?",'warning');
+    rpc_close();
+    document.getElementById('access_token').innerHTML = '';
+    createCookie('access_token','',1);    
 }
 ////////////
 var xbase = "://localhost:8080";
@@ -84,29 +114,4 @@ function rpc_open(access_token) {
     };
     return ws;
 }
-////////////
-function fortune(){
-    rpc_send("motd",[]);
-    LOG("Please sir may I have another (fortune)?");
-}
-function ping(){
-    var access_token = readCookie('access_token');
-    rpc_send("ping",["Hello, world"],function(data){
-	    console.log("PING RESPONSED TO!!!!"+str(data));
-	    document.getElementById('pong').innerHTML = "pong:"+access_token;
-	});
-}
-///
-rpc_add_open(function(){
-	var access_token = readCookie('access_token');
-	document.getElementById('access_token').innerHTML = access_token;
-	ping();
-	fortune();
-    });
-rpc_add_notify('motd',function(data) {
-	console.log("MOTD"+str(data));
-	var result = data.result.replace(/\n/g,'<br>');
-	LOG("New Fortune: "+str(result),'success');
-	document.getElementById('motd').innerHTML = result;
-    });
 ////////////

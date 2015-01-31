@@ -1,3 +1,4 @@
+from gevent import monkey;monkey.patch_all()
 from prelude import *
 from bottle import request, response, Bottle, abort, static_file, redirect
 app = Bottle()
@@ -9,9 +10,8 @@ def DB(_=[]):
 
 class obj:
     @staticmethod
-    def dbCreate(rec):
+    def db_create(ws,rec):
         print  "DB CREATE", repr(rec)
-        obj = rec['params'][0]
         obj_id = obj.pop('id')
         DB().Put(obj_id+'.~meta', '{}')
         for k,v in obj.iteritems():
@@ -19,14 +19,13 @@ class obj:
             pass
         return "DB CREATE", repr(rec)
     @staticmethod
-    def dbRead(rec):
+    def db_read(ws,rec):
         print  "DB READ", repr(rec)
         return "DB READ", repr(rec)
     @staticmethod
-    def dbUpdate(rec):
+    def db_update(ws,rec):
         print  "DB UPDATE", repr(rec)
         print  "DB UPDATE", repr(rec['params'])
-        obj=rec['params'][0]
         obj_id=obj.pop('id')
         for k,v in obj.iteritems():
             print "----- UP", repr((k,v))
@@ -34,8 +33,9 @@ class obj:
             pass
         return "DB UPDATE"
     @staticmethod
-    def dbDelete(rec):
+    def db_delete(ws,rec):
         print  "DB DELETE", repr(rec)
+        DB().Delete(rec['id'])
         return "DB DELETE", repr(rec)
 
     @staticmethod
@@ -49,9 +49,8 @@ class obj:
     def ping(*a,**kw):
         return "PONG", repr((a,kw))
     @staticmethod
-    def load(path):
+    def load(ws,path):
         print "LOAD", repr(path)
-        path = path['params'][0]
         data=open(path).read()
         arr=path.split('/')
         d = dict(
@@ -62,20 +61,18 @@ class obj:
         print "D", repr(d)
         return d
     @staticmethod
-    def save(obj):
-        print "SAVBE", repr(obj)
-        filename, data = obj['params']
+    def save(ws,filename, data):
         f=open(filename,'w')
         f.write(data)
         f.close()
         return dict(result=true)
 
     @staticmethod
-    def filesystem_walk(x):
+    def filesystem_walk(ws,x):
         return dict((name,(dirs,files))
-                    for name,dirs,files in os.walk(x['params'][0]))
+                    for name,dirs,files in os.walk(x))
     @staticmethod
-    def motd(x):
+    def fortune(ws):
         import subprocess
         x=subprocess.Popen(['fortune'],stdout=subprocess.PIPE)
         y = x.communicate()
@@ -122,7 +119,15 @@ def handle_websocket():
             j['_ws'] = wsock
             fn=getattr(_ClientObj,method)
             try:
-                ret=fn(j)
+                print 'J'*60
+                print '------', repr(j)
+                print 'J'*60
+                params = j['params']
+                if type(params) in (type([]),type(())):
+                    ret=fn(wsock,*params)
+                else:
+                    ret=fn(wsock,**params)
+                    pass
                 #print "RET", repr(ret)
                 if ret:
                     wsock.send(json.dumps(dict(id=_id,
@@ -130,10 +135,9 @@ def handle_websocket():
                                                result=ret)))
                     pass
             except:
-                #print "EXCEPT"
                 print_exc()
+                break
         except WebSocketError:
-            #print "WEB SOCKET ERROR"
             print_exc()
             break
     print "BYE!"
