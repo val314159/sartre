@@ -35,9 +35,9 @@ function LOG(msg,typ) {
 }
 ///
 function login(){
-    function get_u(){return document.getElementById("u").value}
-    function get_p(){return document.getElementById("p").value}
     console.log("LOGIN");
+    var u=document.getElementById("u").value;
+    var p=document.getElementById("p").value;
     $("#xxx").click();
     LOG("Try Logging in");
     var args="?u="+get_u()+"&p="+get_p();
@@ -66,7 +66,7 @@ function unlog(){
 function logout(){
     LOG("log out how?",'warning');
     rpc_close();
-    document.getElementById('access_token').innerHTML = '';
+    document.getElementById('access_token').innerHTML = 'unknown';
     createCookie('access_token','',1);    
 }
 ////////////
