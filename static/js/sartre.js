@@ -40,7 +40,7 @@ function login(){
     var p=document.getElementById("p").value;
     $("#xxx").click();
     LOG("Try Logging in");
-    var args="?u="+get_u()+"&p="+get_p();
+    var args="?u="+u+"&p="+p;
     // var xbase="s://localhost:7443";
     var xbase="://localhost:7080";
     var url="http"+xbase+"/auth/grant"+args;
@@ -105,7 +105,7 @@ function rpc_open(access_token) {
 	    if(fn) fn(data);
 	    else console.log("not found");
 	} catch(e) {
-	    console.log("erred out");
+	    console.log("erred out:"+e);
 	}
     };
     ws.ReloadPage=function(){

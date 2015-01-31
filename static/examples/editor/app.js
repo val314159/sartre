@@ -12,9 +12,9 @@ function load(filename,cb){
 	    cb(data);
 	});
 }
-function save(filename,data){
+function save(filename,data,cb){
     rpc_send("save",[filename,data],function(data){
-	    console.log("LOAD RESPONSED TO!!!!"+str(data));
+	    console.log("SAVE RESPONSED TO!!!!"+str(data));
 	    cb(data);
 	});
 }
@@ -83,7 +83,9 @@ function html2text(text){
 }
 function saveFile(){
     var fname=$('#dirname').html()+'/'+$('#filename').html();
+    LOG("Save:"+str(fname));
     var text=html2text($('#filebuf').html());
+    LOG("Text:"+str(text));
     save(fname,text,function(){
 	    LOG("Saved.");
 	});

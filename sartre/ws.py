@@ -49,7 +49,7 @@ class obj:
     def ping(*a,**kw):
         return "PONG", repr((a,kw))
     @staticmethod
-    def load(ws,path):
+    def load(ws,path, offset=0,size=-1):
         print "LOAD", repr(path)
         data=open(path).read()
         arr=path.split('/')
@@ -61,11 +61,11 @@ class obj:
         print "D", repr(d)
         return d
     @staticmethod
-    def save(ws,filename, data):
+    def save(ws,filename, data, offset=0,size=-1):
         f=open(filename,'w')
         f.write(data)
         f.close()
-        return dict(result=true)
+        return dict(result=True)
 
     @staticmethod
     def filesystem_walk(ws,x):
@@ -73,6 +73,12 @@ class obj:
                     for name,dirs,files in os.walk(x))
     @staticmethod
     def fortune(ws):
+        import subprocess
+        x=subprocess.Popen(['fortune'],stdout=subprocess.PIPE)
+        y = x.communicate()
+        return y[0]
+    @staticmethod
+    def motd(ws):
         import subprocess
         x=subprocess.Popen(['fortune'],stdout=subprocess.PIPE)
         y = x.communicate()
@@ -148,7 +154,9 @@ def serve_static(filename=None):
     from markdown2 import markdown_path
     if filename is None  or  filename.endswith('.md'):
         response.headers['Access-Control-Allow-Origin'] = '*'
-        return markdown_path('static/'+filename if filename else 'README.md')
+        filename = 'static/'+filename if filename else 'README.md'
+        print "static", filename
+        return markdown_path(filename)
     resp = static_file(filename, root='static/')
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
