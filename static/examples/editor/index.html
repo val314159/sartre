@@ -11,7 +11,9 @@
     <title>Sartre's Editor</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
     <link rel="stylesheet" href="../../css/bootstrap-treeview.min.css">
 
     <!-- Custom styles for this template -->
@@ -69,18 +71,7 @@
     <div class="container">
       <div class="row">
 
-        <div class="col-md-9">
-	  <p>
-	    <em ondblclick="$('#filename').focus()">File: </em><b id="dirname">./authenticate</b>/<span id="filename" contentEditable="true">wsgi_auth.py</span>
-	    <pre class="pre-scrollable" contentEditable="true" id="filebuf">code here</pre>
-	  </p>
-          <p>
-	    <a style="float:right" onclick="revertFile();return false;" class="btn btn-default" href="#" role="button">&laquo; Revert</a>
-	    <a onclick="saveFile();return false;" id="save_button" class="btn btn-default" href="#" role="button">Save &raquo;</a>
-	  </p>
-	</div>
-
-        <div class="col-md-3">
+        <div class="col-md-4">
 
 	  <button onclick="logout()">log out</button>
 	  <small id="pong" class="text-warning">logged out</small>
@@ -98,6 +89,18 @@
 	  </h2>
           <div xclass="col-md-4" id="log"></div>
         </div>
+
+        <div class="col-md-8">
+	  <p>
+	    <em ondblclick="$('#filename').focus()">File: </em><b id="dirname">./authenticate</b>/<span id="filename" contentEditable="true">wsgi_auth.py</span>
+	    <pre class="pre-scrollable" contentEditable="true" id="filebuf">code here</pre>
+	  </p>
+          <p>
+	    <a style="float:right" onclick="revertFile();return false;" class="btn btn-default" href="#" role="button">&laquo; Revert</a>
+	    <a onclick="saveFile();return false;" id="save_button" class="btn btn-default" href="#" role="button">Save &raquo;</a>
+	  </p>
+	</div>
+
       </div>
     </div> <!-- /container -->
 
@@ -116,7 +119,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -- >
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <!-- -->
