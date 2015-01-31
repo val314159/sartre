@@ -12,10 +12,9 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bootstrap-treeview.min.css">
 
     <!-- Custom styles for this template -->
-    <link href="jumbotron.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -82,25 +81,12 @@ Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursu
 	  <br>
 	  <hr>
         </div>
-        <div class="col-md-4" id="testimonials">
-          <h2>Testimonials
-            <a class="btn btn-default btn-sm" href="#" role="button" onclick="$('#testaments').html('');return false;">Clear</a>
-	  </h2>
-	  <div id="testaments">
-	  <blockquote>&ldquo;What?  You made a website?&rdquo;
-	    <footer><cite><abbr title="lover of vals">annebot</abbr></cite></footer></blockquote>
-	  <blockquote class="blockquote-reverse">&ldquo;Well, it's really an async RPC framework and all...&rdquo;
-	    <footer><cite><abbr title="lover of bots">val</abbr></cite></footer></blockquote>
-	  <blockquote><span>&ldquo;Was that the sound of can opener?&rdquo;</span>
-	    <footer><cite><abbr title="infamous feline">lex</abbr></cite></footer></blockquote>
-	  <blockquote class="blockquote-reverse">&ldquo;No, lex&hellip;&rdquo; &laquo;shakes head&raquo;
-	    <p style="height: 0.25em">&nbsp;</p>
-	    &ldquo;So, it's like, really efficient.  And super-scalable.&rdquo;
-	    <footer><cite><abbr title="lover of bots">val</abbr></cite></footer></blockquote>
 
-	  </div>
-	  <button class="btn btn-primary" onclick="add_to_convo();return false;">Add to the conversation</button>
+        <div class="col-md-4" id="testimonials">
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;
+Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
 	</div>
+
         <div class="col-md-4">
           <h2>Log Messages
             <a class="btn btn-default btn-sm" href="#" role="button" onclick="unlog();return false;">Clear</a>
@@ -109,42 +95,6 @@ Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursu
         </div>
       </div>
     </div> <!-- /container -->
-
-    <hr>
-
-    <div class="jumbotron" style='background-image:url(lgrey031.jpg)'>
-      <div class="container">
-        <h1>Hello again, <span id="access_token2" class="btn btn-default btn-md" type="button" role="button">unknown</span>!</h1>
-        <p>Want to try to edit some stuff?</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button" onclick="another_one();return false;">Get Another Fortune &raquo;</a></p>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="row">
-	<div class="col-md-4">
-	  <ul class="nav nav-pills">
-	    <li role="presentation" class="active"><a href="#">Files</a></li>
-	    <li role="presentation"><a href="#">Buffers</a></li>
-	    <li role="presentation"><a href="#">Procs</a></li>
-	  </ul>
-	  <div id="tree">Tree Not loaded.</div>
-	</div>
-	<div class="col-md-8">
-
-	  <p>
-	    <em ondblclick="$('#filename').focus()">File: </em id="dirname">./authenticate<b>/<span id="filename" contentEditable="true">wsgi_auth.py</span></b>
-	    <pre class="pre-scrollable" contentEditable="true" id="filebuf">code here</pre>
-	  </p>
-          <p>
-	    <a style="float:right" onclick="revertFile();return false;" class="btn btn-default" href="#" role="button">&laquo; Revert</a>
-	    <a onclick="saveFile();return false;" id="save_button" class="btn btn-default" href="#" role="button">Save &raquo;</a>
-	  </p>
-
-
-	</div>
-      </div>
-    </div>
 
     <hr>
 
@@ -165,11 +115,9 @@ Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursu
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -- >
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <!-- -->
-    <script src="bootstrap-treeview.min.js"></script>
     <script src="cookie.js"></script>
     <script src="rpc.js"></script>
-    <script src="login_app.js"></script>
-    <script src="jumbo_app.js"></script>
+    <script src="app.js"></script>
     <script>LOG("Page Loaded2.")</script>
   </body>
 </html>

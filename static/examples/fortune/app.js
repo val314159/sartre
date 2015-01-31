@@ -11,36 +11,12 @@ function ping(){
 	    document.getElementById('pong').innerHTML = "pong:"+access_token;
 	});
 }
-function load(filename,cb){
-    rpc_send("load",[filename],function(data){
-	    console.log("LOAD RESPONSED TO!!!!"+str(data));
-	    cb(data);
-	});
-}
-function save(filename,data){
-    rpc_send("save",[filename,data],function(data){
-	    console.log("LOAD RESPONSED TO!!!!"+str(data));
-	    cb(data);
-	});
-}
 function LOG(msg,typ) {
     typ = typ || 'info';
     $('#log').prepend("<p class='alert alert-dismissable small alert-"+typ+"' role='alert'>"+
 		      '<button type="button" class="close" data-dismiss="alert">×</button>'+
 		      msg+
 		      "</p>");
-}
-function QUOTE(msg,who,title,id) {
-    var xstr="<blockquote id='"+id+"'>&ldquo;"+msg+"&rdquo;"+
-	"<footer><cite><abbr title="+title+">"+who+
-	"</abbr></cite></footer></blockquote>";
-    $('#testimonials').append(xstr);
-}
-function QUOTE2(msg,who,title,id) {
-    var xstr="<blockquote class='blockquote-reverse' id='"+id+"'>&ldquo;"+msg+"&rdquo;"+
-	"<footer><cite><abbr title="+title+">"+who+
-	"</abbr></cite></footer></blockquote>";
-    $('#testimonials').append(xstr);
 }
 function login(){
     console.log("LOGIN");
@@ -77,7 +53,6 @@ rpc_add_open(function(){
 	document.getElementById('access_token').innerHTML = access_token;
 	ping();
 	another_one();
-	filesystem_walk();
     });
 rpc_add_notify('motd',function(data) {
 	console.log("MOTD"+str(data));
