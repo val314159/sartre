@@ -12,13 +12,13 @@ function ping(){
 	});
 }
 function load(filename,cb){
-    rpc_send("load",[filename],function(data){
+    rpc_send("fs_load",[filename],function(data){
 	    console.log("LOAD RESPONSED TO!!!!"+str(data));
 	    cb(data);
 	});
 }
 function save(filename,data){
-    rpc_send("save",[filename,data],function(data){
+    rpc_send("fs_save",[filename,data],function(data){
 	    console.log("LOAD RESPONSED TO!!!!"+str(data));
 	    cb(data);
 	});
@@ -77,7 +77,7 @@ rpc_add_open(function(){
 	document.getElementById('access_token').innerHTML = access_token;
 	ping();
 	another_one();
-	filesystem_walk();
+	fs_walk();
     });
 rpc_add_notify('motd',function(data) {
 	console.log("MOTD"+str(data));

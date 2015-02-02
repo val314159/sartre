@@ -13,8 +13,8 @@ function xregetTree() {
 		if (node.data.cb) node.data.cb(event,node);
 	    }});
 }
-function filesystem_walk() {
-    rpc_send("filesystem_walk",["fs"],function(data){
+function fs_walk() {
+    rpc_send("fs_walk",["fs"],function(data){
 	    var map = data.result;
 	    function findlist(path,acc){
 		if (!map[path]) return;

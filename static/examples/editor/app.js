@@ -6,43 +6,21 @@ function ping(){
 	    document.getElementById('pong').innerHTML = "pong:"+access_token;
 	});
 }
-function load(filename,cb){
-    rpc_send("load",[filename],function(data){
+
+function fs_load(filename,cb){
+    rpc_send("fs_load",[filename],function(data){
 	    console.log("LOAD RESPONSED TO!!!!"+str(data));
 	    cb(data);
 	});
 }
-function save(filename,data,cb){
-    rpc_send("save",[filename,data],function(data){
+function fs_save(filename,data,cb){
+    rpc_send("fs_save",[filename,data],function(data){
 	    console.log("SAVE RESPONSED TO!!!!"+str(data));
 	    cb(data);
 	});
 }
-///
-rpc_add_open(function(){
-	var access_token = readCookie('access_token');
-	document.getElementById('access_token').innerHTML = access_token;
-	ping();
-	filesystem_walk();
-    });
-///
-var _tree = [{text:"Not Loaded"}];
-function getTree() {
-    // Some logic to retrieve, or generate tree structure
-  return _tree;
-}
-function regetTree() {
-    $('#tree').treeview({data: getTree(),levels:0});
-}
-function xregetTree() {
-    $('#tree').treeview({data:getTree(),levels:0,
-		onNodeSelected:function(event,node){
-		LOG("click:"+str(node));
-		if (node.data.cb) node.data.cb(event,node);
-	    }});
-}
-function filesystem_walk() {
-    rpc_send("filesystem_walk",["fs"],function(data){
+function fs_walk() {
+    rpc_send("fs_walk",["fs"],function(data){
 	    var map = data.result;
 	    function findlist(path,acc){
 		if (!map[path]) return;
@@ -69,6 +47,29 @@ function filesystem_walk() {
 	    regetTree();
 	});
 }
+///
+rpc_add_open(function(){
+	var access_token = readCookie('access_token');
+	document.getElementById('access_token').innerHTML = access_token;
+	ping();
+    fs_walk();
+    });
+///
+var _tree = [{text:"Not Loaded"}];
+function getTree() {
+    // Some logic to retrieve, or generate tree structure
+  return _tree;
+}
+function regetTree() {
+    $('#tree').treeview({data: getTree(),levels:0});
+}
+function xregetTree() {
+    $('#tree').treeview({data:getTree(),levels:0,
+		onNodeSelected:function(event,node){
+		LOG("click:"+str(node));
+		if (node.data.cb) node.data.cb(event,node);
+	    }});
+}
 function text2html(text){
     text = text.replace(/\&/g,'&amp;');
     text = text.replace(/\>/g,'&gt;');
@@ -86,13 +87,13 @@ function saveFile(){
     LOG("Save:"+str(fname));
     var text=html2text($('#filebuf').html());
     LOG("Text:"+str(text));
-    save(fname,text,function(){
+    fs_save(fname,text,function(){
 	    LOG("Saved.");
 	});
 }
 function loadFile(filename){
     LOG("PICKED A FILE "+filename);
-    load(filename,function(data){
+    fs_load(filename,function(data){
 	    LOG("OK GOT IT:1:"+str(data.result));
 	    var newText=text2html(data.result.data);
 	    $( '#dirname'  ).html(data.result.dirname);
