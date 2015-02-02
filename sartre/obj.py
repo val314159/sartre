@@ -52,6 +52,7 @@ class pubsub_obj:
         return ret
     @classmethod
     def pub(_,ws,_id,ch,msg,skip=None):
+        print "PUBBBBBB", repr((ws,_id,ch,msg,skip))
         ret=_.PS.pub(ch,msg,skip)
         ws.send(json.dumps(dict(id=_id,method="pub",result=ret)))
         return ret

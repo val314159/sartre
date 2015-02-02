@@ -75,6 +75,7 @@ var xbase = "://localhost:8080";
 var obj = {};
 var _id=0,callbacks={};
 var _open=function(){};
+function nextId(){return 'i'+(++_id)};
 function rpc_add_open(f){_open=f;}
 function rpc_add_notify(method,fn){obj[method]=fn;}
 function rpc_send(method,params,fn){
