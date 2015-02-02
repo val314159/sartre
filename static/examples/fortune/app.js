@@ -5,7 +5,7 @@ function fortune(){
 }
 function ping(){
     var access_token = readCookie('access_token');
-    rpc_send("ping",["Hello, world"],function(data){
+    rpc_send("ping",["HW"],function(data){
 	    console.log("PING RESPONSED TO!!!!"+str(data));
 	    document.getElementById('pong').innerHTML = "pong:"+access_token;
 	});

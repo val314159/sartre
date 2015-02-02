@@ -12,30 +12,19 @@ def process(tok,wsock):
     while True:
         try:
             message = wsock.receive()
-            #print("Your message was: %r" % message)
             if not message: break
             j=json.loads(message)
-            #print("Your message was::" + repr(j))
 
             method=j['method']
             _id=j.get('id',None)
             j['_ws'] = wsock
             fn=getattr(_ClientObj,method)
             try:
-                print 'J'*60
-                print '------', repr(j)
-                print 'J'*60
                 params = j['params']
                 if type(params) in (type([]),type(())):
-                    ret=spawn(fn,wsock,*params)
+                    ret=spawn(fn,wsock,_id,*params)
                 else:
-                    ret=spawn(fn,wsock,**params)
-                    pass
-                #print "RET", repr(ret)
-                if ret:
-                    wsock.send(json.dumps(dict(id=_id,
-                                               method=method,
-                                               result=ret)))
+                    ret=spawn(fn,wsock,_id,**params)
                     pass
             except:
                 print_exc()
