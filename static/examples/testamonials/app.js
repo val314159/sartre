@@ -47,6 +47,12 @@ function QUOTE2(msg,who,title,id) {
     },500);
 }
 ///
+function sub(chlist) {
+    rpc_send("sub",[chlist],function(data){
+	console.log("SUB RESPONSED TO!!!!"+str(data));
+	///document.getElementById('pong').innerHTML = "pong:"+access_token;
+    });
+}
 function pub(ch,msg) {
     rpc_send("pub",[ch,msg],function(data){
 	console.log("PUB RESPONSED TO!!!!"+str(data));
@@ -57,12 +63,13 @@ function pub(ch,msg) {
 function add_to_convo(x,y,z){
     QUOTE2("It's great!!!","Random User","Anonymous",nextId());
 }
-///
-rpc_add_open(function(){
-	var access_token = readCookie('access_token');
-	document.getElementById('access_token').innerHTML = access_token;
-	ping();
-    });
+
+rpc_add_notify('pub',function(data) {
+    console.log("PUBBBBB"+str(data));
+    var params = data.params;
+    LOG("New Pub: "+str(params));
+});
+
 rpc_add_notify('testimonial',function(data) {
 	console.log("TESTIMONAIL:"+str(data));
 	var result = data.result.replace(/\n/g,'<br>');
@@ -70,7 +77,11 @@ rpc_add_notify('testimonial',function(data) {
 	document.getElementById('fortune').innerHTML = result;
     });
 rpc_add_open(function(){
-	rpc_send("ping",["Hello, world"],function(data){
+    var access_token = readCookie('access_token');
+    document.getElementById('access_token').innerHTML = access_token;
+
+    rpc_send("ping",["Hello, world"],function(data){
 		console.log("PING RESPONSED TO!!!!"+str(data));
 	    });
+    sub(['Testamonials']);
     });

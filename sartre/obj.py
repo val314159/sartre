@@ -47,14 +47,18 @@ class pubsub_obj:
     PS = PubSub()
     @classmethod
     def sub(_,ws,_id,subs):
+        print "11 SUBBBBBB", repr((ws,_id,subs))    
         ret=_.PS.sub(subs,ws)
         ws.send(json.dumps(dict(id=_id,method="sub",result=ret)))
+        print "99 SUBBBBBB", repr((ws,_id,subs))    
         return ret
     @classmethod
     def pub(_,ws,_id,ch,msg,skip=None):
-        print "PUBBBBBB", repr((ws,_id,ch,msg,skip))
+        if skip is None: skip = ws
+        print "11 PUBBBBBB", repr((ws,_id,ch,msg,skip))
         ret=_.PS.pub(ch,msg,skip)
         ws.send(json.dumps(dict(id=_id,method="pub",result=ret)))
+        print "99 PUBBBBBB", repr((ws,_id,ch,msg,skip))
         return ret
     pass
 
