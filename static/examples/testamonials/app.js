@@ -18,7 +18,7 @@ function QUOTE(msg,who,title,id) {
     var xstr="<blockquote id='"+id+"'>&ldquo;"+msg+"&rdquo;"+
 	"<footer><cite><abbr title="+title+">"+who+
 	"</abbr></cite></footer></blockquote>";
-    $('#testimonials').append(xstr);
+    $('#add_to').before(xstr);
 }
 function QUOTE2(msg,who,title,id) {
     // use this for my comments
@@ -29,7 +29,7 @@ function QUOTE2(msg,who,title,id) {
 	"'>&ldquo;<span id='"+id2+"' contentEditable='true' style='background:cyan'>"+msg+"</span>&rdquo;"+
 	"<footer><cite><abbr contentEditable='true' id='"+id3+"' title="+title+">"+who+
 	"</abbr></cite></footer></blockquote>";
-    $('#testimonials').append(xstr);
+    $('#add_to').before(xstr);
     setTimeout(function(){
 	$('#'+id2).focus();
 	$('#'+id2).blur(function(){
@@ -68,6 +68,7 @@ rpc_add_notify('pub',function(data) {
     console.log("PUBBBBB"+str(data));
     var params = data.params;
     LOG("New Pub: "+str(params));
+    QUOTE(params[0].msg,params[0].who,"Anonymous",nextId());
 });
 
 rpc_add_notify('testimonial',function(data) {
