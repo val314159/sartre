@@ -27,7 +27,7 @@ var fs={
 		    acc.push({ text: val,
 			       data:{t:'f',p:path,f:val,
 				     cb:function(){
-					 loadFile(path +'/'+ val);
+					 EditApp.loadFile(path +'/'+ val);
 				     }}});
 		});
 		return acc;

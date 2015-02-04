@@ -1,11 +1,10 @@
 function EditorApplication(){
-    var app={};
-    var self=app;
+    var self={};
     self.app=1;
     self.launch=function(){self.main();return self};
     self.main=function(){
-	$('#saveButton').click(saveFile);
-	$('#revertButton').click(revertFile);
+	$('#saveButton').click(self.saveFile);
+	$('#revertButton').click(self.revertFile);
 	$('#tree').treeview({data:[{text:"Not Loaded"}],levels:0,
 			     onNodeSelected:function(event,node){
 				 LOG("click:"+str(node));
@@ -52,4 +51,5 @@ function EditorApplication(){
 	var fname=$('#dirname').html()+'/'+$('#filename').html();
 	self.loadFile(fname);
     };
+    return self;
 }
