@@ -18,3 +18,40 @@
 <script src="u.js"></script>
 <script src="../../rpc.js"></script>
 <script src="app.js"></script>
+<script>
+    function TodoApplication(){
+        var self={};
+        self.$$Description=function(k,v){            
+            console.log("$$Description"+k+v);
+            var elt=$E(k+'>[name="value"]');
+            if (U(v))	  return(elt.value);
+            elt.value = v;
+            //PUB.Update({id:id,description:desc});
+        };
+        self.$$Complete=function(k,v){
+            console.log("$$Complete"+k+v);
+            var elt = $E(k+'>[name="complete"]');
+            if (U(v))   return(elt.checked);
+            var elt2= $E(k+'>[name="value"]');
+            elt.checked = complete ? true : false;
+            elt2.style['text-decoration']=v?"line-through":"";
+            //PUB.Update({id:id,complete:complete});
+        };
+        self.Create=function(k){
+            console.log("Create " + k);
+            var newElt=document.createElement('li');
+            var newId=k?k:nextId();
+            renderElt('todo_item', newElt, {id: newId});
+            this.arrElt.appendChild(newElt);
+            //PUB.Create({id:id});        
+        };
+        self.Delete=function(k){
+            console.log("Delete " + k);
+            var elt = $E(k);
+            var node = elt.parentNode;
+            node.parentNode.removeChild(node);
+            //PUB.Delete({id:id});
+        };
+        return self;
+    }
+</script>

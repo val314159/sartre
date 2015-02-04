@@ -30,8 +30,7 @@ function LOG(msg,typ) {
     typ = typ || 'info';
     $('#log').prepend("<p class='alert alert-dismissable small alert-"+typ+"' role='alert'>"+
 		      '<button type="button" class="close" data-dismiss="alert">×</button>'+
-		      msg+
-		      "</p>");
+		      msg+"</p>");
 }
 ///
 function login(){

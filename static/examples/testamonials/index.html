@@ -99,8 +99,13 @@ Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursu
 
 	  </div>
 
-	  <button id="add_to" class="btn btn-primary" onclick="add_to_convo();return false;">Add to the conversation</button>
-	</div>
+	  <button id="add_to" class="btn btn-primary" xonclick="tApp.add_to_convo();return false;">Add to the conversation</button>
+
+	  <!--
+	  <button id="xadd_to" class="btn btn-primary" onclick="tApp.add_to_convo();return false;">Add to the conversation</button>
+-->
+	  
+	  </div>
         <div class="col-md-4">
           <h2>Log Messages
             <a class="btn btn-default btn-sm" href="#" role="button" onclick="unlog();return false;">Clear</a>
@@ -131,7 +136,12 @@ Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursu
     <!-- -->
     <script src="../../js/bootstrap-treeview.min.js"></script>
     <script src="../../js/sartre.js"></script>
+    <script src="ps.js"></script>
     <script src="app.js"></script>
-    <script>LOG("Page Loaded2.")</script>
-  </body>
+    <script>
+    LOG("Page Loaded.");
+    var tApp=new tApplication().launch();
+    LOG("App Launched.");
+    </script>
+    </body>
 </html>

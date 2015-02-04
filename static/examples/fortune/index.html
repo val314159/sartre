@@ -61,7 +61,7 @@
 	  <br>
 	  Log in and I'll tell you a fortune!
 	</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button" onclick="fortune();return false;">Get Another Fortune &raquo;</a></p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button" onclick="FortuneApp.fortune();return false;">Get Another Fortune &raquo;</a></p>
       </div>
     </div>
 
@@ -117,6 +117,10 @@ Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursu
     <!-- -->
     <script src="../../js/sartre.js"></script>
     <script src="app.js"></script>
-    <script>LOG("Page Loaded2.")</script>
+    <script>
+    LOG("Page Loaded.");
+    var FortuneApp=FortuneApplication().launch();
+    LOG("Application launched.");
+    </script>
   </body>
 </html>

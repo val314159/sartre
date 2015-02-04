@@ -96,8 +96,8 @@
 	    <pre class="pre-scrollable" contentEditable="true" id="filebuf">code here</pre>
 	  </p>
           <p>
-	    <a style="float:right" onclick="revertFile();return false;" class="btn btn-default" href="#" role="button">&laquo; Revert</a>
-	    <a onclick="saveFile();return false;" id="save_button" class="btn btn-default" href="#" role="button">Save &raquo;</a>
+	    <a style="float:right" id="revertButton" class="btn btn-default" href="#" role="button">&laquo; Revert</a>
+	    <a id="saveButton" class="btn btn-default" href="#" role="button">Save &raquo;</a>
 	  </p>
 	</div>
 
@@ -126,7 +126,12 @@
     <!-- -->
     <script src="../../js/bootstrap-treeview.min.js"></script>
     <script src="../../js/sartre.js"></script>
+    <script src="fs.js"></script>
     <script src="app.js"></script>
-    <script>LOG("Page Loaded2.")</script>
-  </body>
+    <script>
+    LOG("Page Loaded.");
+    var EditApp=EditorApplication().launch();
+    LOG("App Launched.");
+    </script>
+    </body>
 </html>
