@@ -1,6 +1,4 @@
 from prelude import *
-from obj import obj
-from geventwebsocket import WebSocketError
 from gevent import spawn
 from obj import obj
 

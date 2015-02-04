@@ -7,26 +7,26 @@ def DB(_=[]):
 
 class db_obj:
     @staticmethod
-    def db_create(ws,_id,rec):
-        print  "DB CREATE", repr(rec)
+    def db_create(ws,_id,obj):
+        print  "DB CREATE", repr(obj)
         obj_id = 'o.'+obj.pop('id')
         DB().Put(obj_id+'.', '{}')
         for k,v in obj.iteritems(): DB().Put(obj_id+'.'+k, json.dumps(v))
         ws.send(json.dumps(dict(id=_id,method="db_create",result=True)))
-        return "DB CREATE", repr(rec)
+        return "DB CREATE", repr(obj)
     @staticmethod
-    def db_read(ws,_id,rec={}):
-        print  "DB READ", repr(rec)
-        st,fi=('o.'+rec.get('start'),rec.get('finish','o.~~~'))
+    def db_read(ws,_id,obj={}):
+        print  "DB READ", repr(obj)
+        st,fi=('o.'+obj.get('start'),obj.get('finish','o.~~~'))
         for k,v in DB.RangeIter(st,fi):
             print " == KV ", repr((k,v))
             ws.send(json.dumps(dict(id=_id,method="db_read",result=(k,v))))
             pass
         ws.send(json.dumps(dict(id=_id,method="db_read",result=True)))
-        return "DB READ", repr(rec)
+        return "DB READ", repr(obj)
     @staticmethod
-    def db_update(ws,_id,rec):
-        print  "DB UPDATE", repr(rec)
+    def db_update(ws,_id,obj):
+        print  "DB UPDATE", repr(obj)
         obj_id=obj.pop('id')
         for k,v in obj.iteritems():
             print "----- UP", repr((k,v))
@@ -35,11 +35,11 @@ class db_obj:
         ws.send(json.dumps(dict(id=_id,method="db_update",result=True)))
         return "DB UPDATE"
     @staticmethod
-    def db_delete(ws,_id,rec):
-        print  "DB DELETE", repr(rec)
-        DB().Delete(rec['id'])
+    def db_delete(ws,_id,obj):
+        print  "DB DELETE", repr(obj)
+        DB().Delete(obj['id'])
         ws.send(json.dumps(dict(id=_id,method="db_delete",result=True)))
-        return "DB DELETE", repr(rec)
+        return "DB DELETE", repr(obj)
     pass
 
 class pubsub_obj:

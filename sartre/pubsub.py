@@ -10,13 +10,19 @@ class PubSub:
         msg=json.dumps(dict(method='pub', params=[message]))
         print "BAH1 ", _.d[channel_name]
         for listener in _.d[channel_name]:
-            print "BAH LOOP"
-            if listener!=skip:
-                print "NO SKIP", listener, skip
-                listener.send(msg)
-                pass
-            else:
+            if listener==skip:
                 print "SKIP", listener, skip
+                continue
+            print "NO SKIP", listener, skip
+            try:
+                listener.send(msg)
+            except WebSocketError:
+                print "SHUT IT DOWN"
+                print_exc()
+                try:    listener.close()
+                except: pass
+                del _.d[channel_name]
+                pass
             pass
         print "P AFTER", repr(_.d), channel_name
         pass

@@ -1,32 +1,37 @@
-function ToDoList(id){
-    this.arrElt = $E(id);
-}
 var PUB = {
     Create: function(obj){
-	rpc_send("dbCreate",[obj],function(data){
+	rpc_send("db_create",[obj],function(data){
 	    LOG("::CREATED::");
 	    console.log(data);
 	});
     },
     Read  : function(obj,cb){
-	rpc_send("dbRead",[obj],function(data){
+	rpc_send("db_read",[obj],function(data){
 	    LOG("::READ::");
 	    console.log(data);
 	    cb(data);
 	});
     },
     Update: function(obj){
-	rpc_send("dbUpdate",[obj],function(data){
+	rpc_send("db_update",[obj],function(data){
 	    LOG("::UPDATED::");
 	    console.log(data);
 	});
     },
     Delete: function(obj){
-	rpc_send("dbDelete",[obj],function(data){
+	rpc_send("db_delete",[obj],function(data){
 	    LOG("::DELETED::");
 	    console.log(data);
 	});
     }};
+function ToDoList(id){
+    this.arrElt = $E(id);
+    /*
+    return Object.create(ToDoList.prototype,{
+	arrElt:$E(id)
+    });
+*/
+}
 ToDoList.prototype = {
     $$Description: function(id,desc){
 	console.log("$$Description"+id+desc);
