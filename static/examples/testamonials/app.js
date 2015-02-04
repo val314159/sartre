@@ -1,7 +1,7 @@
 function tApplication(){
     var self={};
+    self.prototype = tApplication.proto;
     self.app=1;
-    self.launch=function(){self.main();return self};
     self.add_left_quote=function(msg,who,title,id) {
 	// use this for others' comments
 	var xstr="<blockquote id='"+id+"'>&ldquo;"+msg+"&rdquo;"+
@@ -45,4 +45,6 @@ function tApplication(){
 	    ps.sub(['Testamonials']);
 	});
     };
+    self.launch=function(){self.main();return self};
+    return self;
 }
