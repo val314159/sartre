@@ -115,3 +115,13 @@ function rpc_open(access_token) {
     return ws;
 }
 ////////////
+function superMain(){
+    if(!superMain.run_once){
+	superMain.run_once = true;
+	initTemplates();
+	rpc_add_open(function(){
+	    LOG("IM OPEN");
+	});
+	rpc_open('VALID');
+    }
+}
