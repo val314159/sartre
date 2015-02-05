@@ -1,6 +1,14 @@
-function TDL_App(eltId){
+function TDL_App(eltId,createButtonId){
     var self=(this===window)?Object.create(TDL_App.prototype):this;
     superMain();
+    self.model = new TDL_Model();
+    self.dom   = new TDL_DOM(eltId);
+    self.svr   = new TDL_Server();
+    if (!createButtonId)
+	createButtonId = eltId+'_create';
+    var elt = $E('#'+createButtonId);
+    if (elt)
+	elt.onclick=function(){ self.Create(nextId()); return true; };
     return self;
 }
 TDL_App.prototype={
@@ -18,10 +26,4 @@ TDL_App.prototype={
 	this.model.Delete(id);
 	this.dom.Delete(id);
 	this.svr.Delete(id);
-    },
-    launch:function(eltId){
-	self.model = new TDL_Model();
-	self.dom   = new TDL_DOM(eltId);
-	self.svr   = new TDL_Server();
-	var self=this;
     }};

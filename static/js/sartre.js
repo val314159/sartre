@@ -58,7 +58,6 @@ function login(){
     }
     $.ajax(url).done(done).fail(fail);
 }
-///
 function unlog(){
     $('#log').html('');
 }
@@ -72,7 +71,7 @@ function logout(){
 var xbase = "://localhost:8080";
 //var xbase = "s://localhost:8443";
 var obj = {};
-var _id=0,callbacks={};
+var _id=5000,callbacks={};
 var _open=function(){};
 function nextId(){return 'i'+(++_id)};
 function rpc_add_open(f){_open=f;}

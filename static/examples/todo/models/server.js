@@ -10,7 +10,7 @@ TDL_Server.prototype={
     Create:function(id){
 	var self=this;
 	rpc_send("db_create",[{id:id}],function(data){});
-	},
+    },
     Delete:function(id){
 	var self=this;
 	rpc_send("db_delete",[{id:id}],function(data){});

@@ -1,7 +1,7 @@
 <style>input, select, textarea, button{font-family:inherit;}</style>
 
 <script id="todo_item0" type="hbs">
-<p id="{{id}}">
+<p id="{{id}}"> ID={{id}}
 <input name="value" placeholder="Enter description here..."
   onchange="TDL.Update('Description','{{id}}',this.value);return true">
 <input type="checkbox" name="complete"
@@ -9,28 +9,14 @@
 <a href="#" onclick="TDL.Delete('{{id}}');return false">delete</a>
 </p></script>
 
-<script id="todo_item"  type="hbs">
-<p id="{{id}}">
-<input name="value"
-  onchange="ToDo.$$Description('#{{id}}',this.value);return true"
-  placeholder="Enter description here...">
-<input type="checkbox" name="complete"
-  onchange="ToDo.$$Complete('#{{id}}',this.checked)">
-<a href="#"
-  onclick="ToDo.Delete('#{{id}}');return false">delete</a>
-</p></script>
-
 <ul id="todolist0"></ul>
-<button onclick="TDL.Create(nextId())">Create</button>
-
+<button id="todolist0_create">Create</button>
 <hr>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
-<script src="u.js"></script>
+<script src="sartre.js"></script>
 <script src="models/model.js"></script>
 <script src="models/server.js"></script>
 <script src="models/dom.js"></script>
 <script src="models/app.js"></script>
-<script>
-var TDL = TDL_App("#todolist0");
-</script>
+<script>var TDL = TDL_App("todolist0");</script>

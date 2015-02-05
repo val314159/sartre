@@ -6,6 +6,7 @@ function TDL_Model(){
 }
 TDL_Model.prototype={
     Update:function(k,id,v){
+	var self=this;
 	self.ndx[id][k]=v;
     },
     Create:function(id){
