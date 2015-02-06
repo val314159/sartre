@@ -19,9 +19,9 @@ TDL_DOM.prototype={
     },
     Update:function(k,id,v){
 	var fn = this['$'+k];
-	if(fn) fn('#'+id,v);
+	if(fn) fn('#'+id,v); // dispatch
 	else   console.log("NOT FOUND");
-    }, // dispatch
+    },
     Create:function(id){
 	var self=this;
 	var newElt=document.createElement('li');
