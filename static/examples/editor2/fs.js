@@ -12,7 +12,7 @@ var fs={
 	});
     },
     walk:function(renderFn) {
-	rpc_send("fs_walk",["fs"],function(data){
+	rpc_send("fs_walk",["static"],function(data){
 
 	    function transmogrify(map,path,acc){
 		if (!map[path]) return;
