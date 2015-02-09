@@ -1,4 +1,11 @@
 var fs={
+    reboot:function(cb){
+	rpc_send("fs_reboot",[],function(data){
+	    console.log("REBOOT RESPONSED TO!!!! 1 ");
+	    cb(data);
+	    console.log("REBOOT RESPONSED TO!!!! 3 ");
+	 });
+     },
     load:function(filename,cb){
 	rpc_send("fs_load",[filename],function(data){
 	    console.log("LOAD RESPONSED TO!!!! 1 "+str(data));

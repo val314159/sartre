@@ -64,6 +64,18 @@ class pubsub_obj:
 
 class fs_obj:
     @staticmethod
+    def fs_reboot(ws,_id):
+        print "REBOOOOOT"
+        from gevent import spawn, sleep
+        def do_later():
+            sleep(0.5)
+            import os
+            os.system('killall -9 python')
+            pass
+        spawn(do_later)
+        ws.send(json.dumps(dict(id=_id,method="fs_reboot",result="OK THEN")))
+        return dict(data={'msg':'OK THEN'})
+    @staticmethod
     def fs_load(ws,_id,path,off=0,sz=1024*1024):
         f=open(path)
         f.seek(int(off))

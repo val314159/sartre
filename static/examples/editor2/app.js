@@ -5,6 +5,7 @@ function EditorApplication(){
     self.main=function(){
 	$('#saveButton').click(self.saveFile);
 	$('#revertButton').click(self.revertFile);
+	$('#rebootButton').click(self.rebootSystem);
 	$('#tree').treeview({data:[{text:"Not Loaded"}],levels:0,
 			     onNodeSelected:function(event,node){
 				 LOG("click:"+str(node));
@@ -28,6 +29,16 @@ function EditorApplication(){
 	text = text.replace(/&amp;/g,'&');
 	return text;
     }
+    self.rebootSystem=function(){
+	LOG("REBOOT");
+	fs.reboot(function(){
+	    LOG("Rebooted!");
+	    setTimeout(function(){
+		    LOG("OK TRY NOW");
+		    location.reload();
+		},2000);
+	});
+    };
     self.saveFile=function(){
 
 	alert("XX:"+str(editor.getValue()));
@@ -45,16 +56,6 @@ function EditorApplication(){
 	LOG("PICKED A FILE "+filename);
 	fs.load(filename,function(data){
 		console.log("OK GOT IT:0" + data);
-		/*
-		console.log("OK GOT IT:0.5" + str(data));
-		console.log("OK GOT IT:0.6" + data.method);
-		console.log("OK GOT IT:0.7" + data.result);
-		console.log("OK GOT IT:0.8" + data.result);
-		console.log("OK GOT IT:0.9" + JSON.stringify(data.result));
-		console.log("OK GOT IT:0.9+" + str(data.result));
-		console.log("2OK GOT IT:0.9" + JSON.stringify(data.result));
-		*/
-		console.log("OK GOT IT:2");
 	    //var newText=text2html(data.result.data);
 	    $( '#dirname'  ).html(data.result.dirname);
 		console.log("OK GOT IT:3");
