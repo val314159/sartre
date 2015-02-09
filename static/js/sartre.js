@@ -25,12 +25,11 @@ function eraseCookie(name) {
 }
 ///
 function str(x){return JSON.stringify(x)}
-function str2(x){return 'JSON.stringify(x)';}
 ///
 function LOG(msg,typ) {
     typ = typ || 'info';
     $('#log').prepend("<p class='alert alert-dismissable small alert-"+typ+"' role='alert'>"+
-		      '<button type="button" class="close" data-dismiss="alert">×</button>'+
+		      '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
 		      msg+"</p>");
 }
 ///
