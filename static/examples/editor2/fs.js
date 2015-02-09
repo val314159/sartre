@@ -1,8 +1,10 @@
 var fs={
     load:function(filename,cb){
 	rpc_send("fs_load",[filename],function(data){
-	    console.log("LOAD RESPONSED TO!!!!"+str(data));
+	    console.log("LOAD RESPONSED TO!!!! 1 "+str(data));
 	    cb(data);
+	    console.log("LOAD RESPONSED TO!!!! 3 ");
+
 	});
     },
     save:function(filename,data,cb){
@@ -12,7 +14,7 @@ var fs={
 	});
     },
     walk:function(renderFn) {
-	rpc_send("fs_walk",["static"],function(data){
+	rpc_send("fs_walk",["fs"],function(data){
 
 	    function transmogrify(map,path,acc){
 		if (!map[path]) return;

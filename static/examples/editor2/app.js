@@ -44,12 +44,29 @@ function EditorApplication(){
     self.loadFile=function(filename){
 	LOG("PICKED A FILE "+filename);
 	fs.load(filename,function(data){
-	    LOG("OK GOT IT:1:"+str(data.result));
+		console.log("OK GOT IT:0" + data);
+		console.log("OK GOT IT:0.5" + str(data));
+		console.log("OK GOT IT:0.6" + data.method);
+		console.log("OK GOT IT:0.7" + data.result);
+		console.log("OK GOT IT:0.8" + data.result);
+		console.log("OK GOT IT:0.9" + JSON.stringify(data.result));
+		console.log("OK GOT IT:0.9+" + str(data.result));
+
+		LOG("OK GOT IT:1:"+str2(data.result));
+		//LOG("OK GOT IT:1:"+str(data.result));
+
+		console.log("2OK GOT IT:0.9" + JSON.stringify(data.result));
+
+		console.log("OK GOT IT:2");
 	    //var newText=text2html(data.result.data);
 	    $( '#dirname'  ).html(data.result.dirname);
+		console.log("OK GOT IT:3");
 	    $( '#filename' ).html(data.result.filename);
+		console.log("OK GOT IT:4");
 	    //$( '#filebuf'  ).html(newText);
+		console.log("OK GOT IT:5");
 	    editor.setValue(data.result.data);
+		console.log("OK GOT IT:6");
 	});
     };
     self.revertFile=function(){

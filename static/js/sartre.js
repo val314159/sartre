@@ -25,6 +25,7 @@ function eraseCookie(name) {
 }
 ///
 function str(x){return JSON.stringify(x)}
+function str2(x){return 'JSON.stringify(x)';}
 ///
 function LOG(msg,typ) {
     typ = typ || 'info';
