@@ -1,4 +1,6 @@
 # Sartre
+
+[![Join the chat at https://gitter.im/val314159/sartre](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/val314159/sartre?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Sartre - An existential framework.  It doesn't get in your way; it just *is*.
 
 ### Includes:
